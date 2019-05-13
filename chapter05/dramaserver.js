@@ -71,9 +71,14 @@ function showDramaList(res){
         
         res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
         res.write('<html><body><h1>My Favorite Drama</h1><ul>');
-        for (var i=0; i<dramaList.length;i++){
-            res.write(`<li>${dramaList[i].title} (${dramaList[i].actor})</li>`);
-        }
+        //기본 for문
+        // for (var i=0; i<dramaList.length;i++){
+        //     res.write(`<li>${dramaList[i].title} (${dramaList[i].actor})</li>`);
+        // }
+        //array.foreach 문
+        dramaList.forEach(function(item){
+            res.write(`<li>${item.title} (${item.actor})</li>`);
+        });
         res.write('</ul>');
         res.write(`-------------------------------------------------------------------
         <form method="POST" action="http://localhost:8080">
