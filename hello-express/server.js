@@ -104,3 +104,17 @@ function calculateSum(start, end){
     }
     return sum;
 }
+
+//6. post 방식 처리
+app.use(express.urlencoded({extended:true}));
+app.post('/', function(req, res){
+    if(req.query.start&&req.query.end){
+        var start = parseInt(req.query.start)
+        var end = parseInt(req.query.end)
+        console.log(`start=${start}, end=${end}`);
+        res.send(`<h1>${calculateSum(start, end)}</h1>`)
+    }
+    else{
+        res.sendFile('C:/node/hello-express/public/formTest.html')
+    }
+});
