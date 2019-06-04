@@ -41,6 +41,37 @@ app.post('/', function(req, res){
     }
 });
 
+app.put('/', function(req, res){
+    if(req.body.title && req.body.newTitle && req.body.newActor){
+        db.run(`UPDATE dramaListTable SET title = $newTitle, actor = $newActor
+        WHERE title = $title`, {$title: req.body.title, $newTitle: req.body.newTitle, $newActor:req.body.newActor},
+        function(err){
+            if(err){
+                console.log(err.message);
+            }else{
+                console.log('data updated');
+            }
+        }
+        );
+    }
+    res.redirect('/');
+});
+
+app.delete('/', function(req, res){
+    if(req.body.title){
+        db.run(`DELETE FROM dramaListTable WHERE title=$title`,
+        {$title: req.body.title},
+        function(err){
+            if(err){
+                console.log(err.message);
+            }else{
+                console.log('data deleted');
+            }
+        }
+        )
+    }
+    res.redirect('/');
+});
 
 app.listen(8080, function(){
     console.log('8080포트에서 머기중');
